@@ -135,7 +135,7 @@ function rollDice() {
   if (diceRolling || gameEnded) return; // Prevent rolling again until movement is complete or if the game has ended
   diceRolling = true;
 
-  let diceRoll = Math.floor(Math.random() * 1) + 1; // Random number between 1 and 6
+  let diceRoll = Math.floor(Math.random() * 5) + 1; // Random number between 1 and 6
 
   // Ensure first roll doesn't land on square 4
   if (pawnData.position === 0 && diceRoll === 3) {
@@ -158,12 +158,16 @@ function movePawn(steps) {
   if (newSquare >= totalSquares - 1) { // totalSquares - 1 is square 22 (zero-based index)
     newSquare = totalSquares - 1; // Force landing exactly on square 22
     moveOneSquare(pawnData.position, newSquare, steps);
+
+    // Trigger the end of the game
+    endGame();
     return;
   }
 
-  // If not ending the game, proceed with normal movement
+  // Proceed with normal movement if not ending the game
   moveOneSquare(pawnData.position, newSquare, steps);
 }
+
 
 // Recursive function to move the pawn step by step
 function moveOneSquare(currentPosition, targetSquare, remainingSteps) {
@@ -475,23 +479,35 @@ function handleTokenDecision(accept, squareIndex) {
 
 // Function to launch the new game for Square 8
 function launchNewGame1() {
-  gameMessage.textContent = "Starting a new game for Square 8!";
+  console.log("Launching New Game 1"); // Debugging log
   savePawnData(); // Save the pawn's current state before redirecting
-  window.location.href = "newGame1.html"; // Redirect to the new game for Square 8
+
+  // Use a small delay to ensure the pawn data is saved before redirecting
+  setTimeout(() => {
+    window.location.href = "newGame1.html"; // Redirect to the new game for Square 8
+  }, 500); // Delay for half a second to allow UI updates
 }
 
 // Function to launch the new game for Square 12
 function launchNewGame2() {
-  gameMessage.textContent = "Starting a new game for Square 12!";
+  console.log("Launching New Game 2"); // Debugging log
   savePawnData(); // Save the pawn's current state before redirecting
-  window.location.href = "newGame2.html"; // Redirect to the new game for Square 12
+
+  // Use a small delay to ensure the pawn data is saved before redirecting
+  setTimeout(() => {
+    window.location.href = "newGame2.html"; // Redirect to the new game for Square 12
+  }, 500); // Delay for half a second to allow UI updates
 }
 
 // Function to launch the new game for Square 19
 function launchNewGame3() {
-  gameMessage.textContent = "Starting a new game for Square 19!";
+  console.log("Launching New Game 3"); // Debugging log
   savePawnData(); // Save the pawn's current state before redirecting
-  window.location.href = "newGame3.html"; // Redirect to the new game for Square 19
+
+  // Use a small delay to ensure the pawn data is saved before redirecting
+  setTimeout(() => {
+    window.location.href = "newGame3.html"; // Redirect to the new game for Square 19
+  }, 500); // Delay for half a second to allow UI updates
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -551,7 +567,7 @@ function endGame() {
 
     // Display a final game message or perform any necessary end-game tasks
     alert(`You've reached the end of the game! Your final circular token balance is: ${pawnData.spentTokens}. 
-Your city and buildings are now ${percentage}% more circular! Good try!`);
+    Your city and buildings are now ${percentage}% more circular! Good try!`);
 
     // Remove pawnData from localStorage to reset the game on reload
     localStorage.removeItem('pawnData');
@@ -566,8 +582,6 @@ Your city and buildings are now ${percentage}% more circular! Good try!`);
     movePawnToSquare(0);
     updateTokenDisplay();
 
-    // Update game message
-    gameMessage.textContent = 'Game has been reset to the starting point. Roll the dice to begin again!';
 
     // Reset game flags
     diceRolling = false;
@@ -580,6 +594,7 @@ Your city and buildings are now ${percentage}% more circular! Good try!`);
     }, 2000); // 2-second delay
   }
 }
+
 
 
 
