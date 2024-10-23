@@ -174,6 +174,8 @@ document.addEventListener('DOMContentLoaded', () => {
         <h2>🎉 Well done on completing this challenge!</h2>
         <p>Your final score is: <strong>${score}</strong></p>
         <p>Total time: <strong>${timeElapsed} seconds</strong></p>
+        <p>What is the sum of all the numbers of the Sustainable Development Goals?</p>
+        <p>Sum up and unlock the next clue!</p>
     `;
         document.body.appendChild(message);
 
