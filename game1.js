@@ -198,7 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             // Add an image
             const image = document.createElement('img');
-            image.src = 'path_to_your_image.jpg'; // Replace with the actual path to your image
+            image.src = 'images/SDG.png'; // Replace with the actual path to your image
             image.alt = 'Completion Image'; // Alt text for the image
             image.style.display = 'block';
             image.style.margin = '20px auto';
