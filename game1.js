@@ -158,18 +158,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function showCompletionMessage() {
-        clearInterval(interval); // Stop the timer
-        guessInput.disabled = true; // Disable input after the game is over
+function showCompletionMessage() {
+    clearInterval(interval); // Stop the timer
+    guessInput.disabled = true; // Disable input after the game is over
     
-        // Pass the score and time elapsed to the end page using URL parameters
-        const finalScore = score;
-        const finalTimeElapsed = timeElapsed;
+    // Pass the score and time elapsed to the end page using URL parameters
+    const finalScore = score;
+    const finalTimeElapsed = timeElapsed;
     
-        // Redirect to game1end.html and pass score and time via URL parameters
-        window.location.href = `game1end.html?score=${finalScore}&time=${finalTimeElapsed}`;
-    }
-
+    // Redirect to game1end.html and pass score and time via URL parameters
+    window.location.href = `game1end.html?score=${finalScore}&time=${finalTimeElapsed}`;
+}
     function goBackToIndex() {
         console.log("Navigating back to indexCENTRAL");
         window.location.href = "indexCENTRAL.html";
