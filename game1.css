@@ -172,3 +172,20 @@ label {
   .restart-button:hover {
     background-color: #cc8400;
   }
+
+
+  #goToMainMenu {
+    background-color: #cc8400;
+    color: white;
+    padding: 15px 30px;
+    font-size: 18px;
+    border-radius: 8px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#goToMainMenu:hover {
+    background-color: #3e8e41; /* Darker green */
+}
+
