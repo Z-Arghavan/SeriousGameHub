@@ -158,62 +158,22 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Function to show the end message, confetti, and a picture with a question
     function showCompletionMessage() {
         clearInterval(interval); // Stop the timer
         guessInput.disabled = true; // Disable input after the game is over
-
-        // Hide elements that should disappear after the game ends
-        document.querySelector('.container').style.display = 'none'; // Hide the main game container (input, score, etc.)
-        document.querySelector('header').style.display = 'none'; // Hide the header (timer and restart button)
-
-        // Display the congratulatory message
-        const message = document.createElement('div');
-        message.classList.add('completion-message');
-        message.innerHTML = `
-        <h2>🎉 Well done on completing this challenge!</h2>
-        <p>Your final score is: <strong>${score}</strong></p>
-        <p>Total time: <strong>${timeElapsed} seconds</strong></p>
-        <h3>Next clue is 153.</h3>
-    `;
-        document.body.appendChild(message);
-
-        // Show confetti
-        confetti({
-            particleCount: 200,
-            spread: 70,
-            origin: { y: 0.6 }
-        });
-
-        // Optional: Continuous confetti effect
-        confettiInterval = setInterval(() => {
-            confetti({
-                particleCount: 100,
-                spread: 60,
-                origin: { y: 0.6 }
-            });
-        }, 1000); // Confetti pops every 1 second
-
-        // After a short delay, display the image and the question
-        setTimeout(() => {
-            // Add an image
-            const image = document.createElement('img');
-            image.src = 'images/SDG.png'; // Replace with the actual path to your image
-            image.alt = 'Completion Image'; // Alt text for the image
-            image.style.display = 'block';
-            image.style.margin = '20px auto';
-            document.body.appendChild(image);
-
-            // Add the question text
-            const question = document.createElement('div');
-            question.classList.add('completion-question');
-            question.innerHTML = `
-            <p class="text-xl text-center mt-4">What is the sum of all the numbers of the Sustainable Development Goals?</p>
-        `;
-            document.body.appendChild(question);
-        }, 3000); // Delay the image and question by 3 seconds (adjust the delay as needed)
+    
+        // Pass the score and time elapsed to the end page using URL parameters
+        const finalScore = score;
+        const finalTimeElapsed = timeElapsed;
+    
+        // Redirect to game1end.html and pass score and time via URL parameters
+        window.location.href = `game1end.html?score=${finalScore}&time=${finalTimeElapsed}`;
     }
 
+    function goBackToIndex() {
+        console.log("Navigating back to indexCENTRAL");
+        window.location.href = "indexCENTRAL.html";
+    }
 
     // Check answer when Enter key is pressed
     guessInput.addEventListener('keypress', (event) => {
