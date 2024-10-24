@@ -216,3 +216,8 @@ function showCompletionMessage() {
     const restartBtn = document.getElementById('restartButton');
     restartBtn.addEventListener('click', restartGame);
 });
+
+
+document.getElementById('goToMainMenu').addEventListener('click', () => {
+    window.location.href = "index.html";
+});
