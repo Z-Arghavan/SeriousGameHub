@@ -28,7 +28,7 @@ header {
 
 /* Green banner styling */
 .banner {
-    background-color: #116529;
+    background-color: #FFA500;
     color: white;
     padding: 15px;
     border-radius: 8px;
@@ -59,7 +59,7 @@ footer {
 
 /* Styling for buttons */
 button {
-    background-color: #116529;
+    background-color: #FFA500 ;
     color: white;
     padding: 10px 20px;
     border: none;
@@ -69,5 +69,5 @@ button {
 }
 
 button:hover {
-    background-color: #0e4d21;
+    background-color: green;
 }
