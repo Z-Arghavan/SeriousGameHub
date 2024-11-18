@@ -583,45 +583,45 @@ document.addEventListener('DOMContentLoaded', () => {
 rollDiceBtn.addEventListener('click', rollDice);
 
 
-// Function to end the game and reset the game state
-function endGame() {
-  if (!gameEnded) {
-    console.log("Game is ending. Final token balance:", pawnData.spentTokens); // Debug log
-    gameEnded = true; // Set the gameEnded flag to true
+// // Function to end the game and reset the game state
+// function endGame() {
+//   if (!gameEnded) {
+//     console.log("Game is ending. Final token balance:", pawnData.spentTokens); // Debug log
+//     gameEnded = true; // Set the gameEnded flag to true
 
-    // Calculate the percentage based on the maximum possible tokens (414)
-    const maxTokens = 414;
-    const percentage = ((pawnData.spentTokens / maxTokens) * 100).toFixed(2); // Calculate percentage and round to 2 decimal places
+//     // Calculate the percentage based on the maximum possible tokens (414)
+//     const maxTokens = 414;
+//     const percentage = ((pawnData.spentTokens / maxTokens) * 100).toFixed(2); // Calculate percentage and round to 2 decimal places
 
-    // Display a final game message or perform any necessary end-game tasks
-    alert(`You've reached the end of the game! Your final circular token balance is: ${pawnData.spentTokens}. 
-    Your city and buildings are now ${percentage}% more circular! Good try!`);
+//     // Display a final game message or perform any necessary end-game tasks
+//     alert(`You've reached the end of the game! Your final circular token balance is: ${pawnData.spentTokens}. 
+//     Your city and buildings are now ${percentage}% more circular! Good try!`);
 
-    // Remove pawnData from localStorage to reset the game on reload
-    localStorage.removeItem('pawnData');
+//     // Remove pawnData from localStorage to reset the game on reload
+//     localStorage.removeItem('pawnData');
 
-    // Reset in-memory pawnData
-    pawnData = { position: 0, tokens: 100, spentTokens: 0 };
+//     // Reset in-memory pawnData
+//     pawnData = { position: 0, tokens: 100, spentTokens: 0 };
 
-    // Save the reset pawnData to localStorage
-    savePawnData(); // Important: Save the reset data
+//     // Save the reset pawnData to localStorage
+//     savePawnData(); // Important: Save the reset data
 
-    // Move the pawn back to start and update displays
-    movePawnToSquare(0);
-    updateTokenDisplay();
+//     // Move the pawn back to start and update displays
+//     movePawnToSquare(0);
+//     updateTokenDisplay();
 
 
-    // Reset game flags
-    diceRolling = false;
-    gameEnded = false;
+//     // Reset game flags
+//     diceRolling = false;
+//     gameEnded = false;
 
-    // Redirect to the game-over page after a short delay (if applicable)
-    setTimeout(() => {
-      console.log("Redirecting to game-over.html"); // Debug log
-      window.location.href = "game-over.html"; // Redirect to the game-over page
-    }, 2000); // 2-second delay
-  }
-}
+//     // Redirect to the game-over page after a short delay (if applicable)
+//     setTimeout(() => {
+//       console.log("Redirecting to game-over.html"); // Debug log
+//       window.location.href = "game-over.html"; // Redirect to the game-over page
+//     }, 2000); // 2-second delay
+//   }
+// }
 
 
 
