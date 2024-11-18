@@ -1,3 +1,7 @@
+//CIB Addition:
+const predefinedSquares = [1, 2, 5, 7, 8, 11, 14, 18, 20, 21]; // Indices for the predefined path
+let currentPathIndex = 0; // Start at the first square in the path
+
 let currentSquare = 0; // Start from square 0 (correct indexing)
 let diceRolling = false; // Prevent multiple rolls at once
 let gameEnded = false; // Track if the game has ended
@@ -33,27 +37,27 @@ const squareSequence = [
 
 const squareDescriptions = [
   'Lets circular up the city',                                                      // Index 0 (Square 1)
-  'DESIGN FOR DECONSTRUCTION: Buildings are designed to be easily taken apart, allowing materials to be reused. ',  // Index 1 (Square 2)
-  'DESIGN FOR DISASSEMBLY: Products/Components are designed to be separated without damaging them, promoting reuse. ',        // Index 2 (Square 3)
-  'DEMOLITION SITE: A location where buildings are dismantled, often resulting in large amounts of waste. ',                        // Index 3 (Square 4)
-  'REUSE STRUCTURAL FRAME: The core structure of a building is preserved and repurposed for future projects. ',       // Index 4 (Square 5)
-  'DESIGN FOR ADAPTABILITY: Buildings are designed to be flexible, allowing them to be modified or repurposed as needs change. ',  // Index 5 (Square 6)
-  'DESIGN FOR REGENERATION: Buildings that actively contribute to environmental improvement, such as enhancing biodiversity. ',   // Index 6 (Square 7)
-  'MINI-GAME (HIERARCHY): Earn tokens by arranging elements in a circular resource hierarchy. ',     // Index 7 (Square 8)
-  'DIGITAL TWIN: A virtual model of a physical building that helps optimize performance and resource use. ',                                    // Index 8 (Square 9)
-  'PREFABRICATION: Building parts are manufactured off-site and assembled later, reducing waste and construction time.',         // Index 9 (Square 10)
-  'LANDSCAPE PACK: A collection of strategies for managing outdoor spaces with a focus on sustainability. ',                                    // Index 10 (Square 11)
-  'MINI-GAME (D HIERARCHY): A mini-game focusing on the hierarchy of design elements in the built environment. ',   // Index 11 (Square 12)
-  'Product As A Service: Products are leased rather than sold, encouraging longevity and reuse. ',                   // Index 12 (Square 13)
-  'BIO-BASED MATERIALS: Construction materials made from renewable biological sources.',              // Index 13 (Square 14)
-  'HAZARDOUS MATERIALS: Materials that require special handling and disposal due to their dangerous properties. ',   // Index 14 (Square 15)
-  'WASTE AUDIT: An evaluation of waste generation and management practices to improve efficiency. ',                 // Index 15 (Square 16)
-  'MAINTENANCE AND RETROFIT: Ongoing improvements to extend the lifespan of existing buildings. ',     // Index 16 (Square 17)
-  'CONSTRUCTION AND DEMOLITION WASTE: Debris produced during building construction or demolition. ',                // Index 17 (Square 18)
-  'MINI-GAME (CIRCULAR RESOURCES): Earn tokens by efficiently managing circular resources. ',                     // Index 18 (Square 19)
-  'MATERIAL BANK: A digital platform for tracking and managing building materials for reuse. ',                      // Index 19 (Square 20)
-  'DIGITAL PRODUCT PASSPORT: A digital document containing all necessary information about a product’s lifecycle. ', // Index 20 (Square 21)
-  'DESIGN WITH REUSABLES: Incorporating reusable materials into construction to reduce waste. '       // Index 21 (Square 22)
+  'DESIGN FOR DECONSTRUCTION ',  // Index 1 (Square 2)
+  'DESIGN FOR DISASSEMBLY ',        // Index 2 (Square 3)
+  'DEMOLITION SITE ',                        // Index 3 (Square 4)
+  'REUSE STRUCTURAL FRAME ',       // Index 4 (Square 5)
+  'DESIGN FOR ADAPTABILITY ',  // Index 5 (Square 6)
+  'DESIGN FOR REGENERATION ',   // Index 6 (Square 7)
+  'MINI-GAME (HIERARCHY)',     // Index 7 (Square 8)
+  'DIGITAL TWIN ',                                    // Index 8 (Square 9)
+  'PREFABRICATION',         // Index 9 (Square 10)
+  'LANDSCAPE PACK ',                                    // Index 10 (Square 11)
+  'MINI-GAME (D HIERARCHY) ',   // Index 11 (Square 12)
+  'Product As A Service ',                   // Index 12 (Square 13)
+  'BIO-BASED MATERIALS',              // Index 13 (Square 14)
+  'HAZARDOUS MATERIALS. ',   // Index 14 (Square 15)
+  'WASTE AUDIT ',                 // Index 15 (Square 16)
+  'MAINTENANCE AND RETROFIT',     // Index 16 (Square 17)
+  'CONSTRUCTION AND DEMOLITION WASTE ',                // Index 17 (Square 18)
+  'MINI-GAME (CIRCULAR RESOURCES)',                     // Index 18 (Square 19)
+  'MATERIAL BANK ',                      // Index 19 (Square 20)
+  'DIGITAL PRODUCT PASSPORT ', // Index 20 (Square 21)
+  'DESIGN WITH REUSABLES '       // Index 21 (Square 22)
 ];
 
 // Mapping of square indices to types
@@ -131,24 +135,49 @@ function updateTokenDisplay() {
 updateTokenDisplay();
 
 // Function to roll the dice
+// function rollDice() {
+//   if (diceRolling || gameEnded) return; // Prevent rolling again until movement is complete or if the game has ended
+//   diceRolling = true;
+
+//   let diceRoll = Math.floor(Math.random() * 5) + 1; // Random number between 1 and 6
+
+//   // Ensure first roll doesn't land on square 4
+//   if (pawnData.position === 0 && diceRoll === 3) {
+//     // If it's the first roll and would land on square 4, re-roll
+//     diceRoll = (diceRoll % 6) + 1; // Shift the roll to another number between 1 and 6
+//   }
+
+//   // Display both the number and the dice dots (Unicode character)
+//   diceDisplay.innerHTML = `🎲 ${diceRoll} (&#x268${diceRoll - 1};)`; // Show number and Unicode dice character
+
+//   // Move the pawn forward by the number rolled
+//   movePawn(diceRoll);
+// }
 function rollDice() {
-  if (diceRolling || gameEnded) return; // Prevent rolling again until movement is complete or if the game has ended
+  if (diceRolling || gameEnded) return; // Prevent multiple rolls at once or rolling after the game has ended
   diceRolling = true;
 
-  let diceRoll = Math.floor(Math.random() * 5) + 1; // Random number between 1 and 6
+  const currentSquare = pawnData.position; // Current square index
+  const nextSquare = predefinedSquares[currentPathIndex]; // Target square in the path
 
-  // Ensure first roll doesn't land on square 4
-  if (pawnData.position === 0 && diceRoll === 3) {
-    // If it's the first roll and would land on square 4, re-roll
-    diceRoll = (diceRoll % 6) + 1; // Shift the roll to another number between 1 and 6
+  // Calculate steps needed to reach the next square
+  let diceRoll = nextSquare - currentSquare;
+
+  // Handle looping around the board if the target square is behind the current position
+  if (diceRoll < 0) {
+    diceRoll += totalSquares; // Adjust for looping
   }
 
-  // Display both the number and the dice dots (Unicode character)
-  diceDisplay.innerHTML = `🎲 ${diceRoll} (&#x268${diceRoll - 1};)`; // Show number and Unicode dice character
+  // Update the path index for the next roll
+  currentPathIndex = (currentPathIndex + 1) % predefinedSquares.length;
 
-  // Move the pawn forward by the number rolled
+  // Display the dice roll
+  diceDisplay.innerHTML = `🎲 ${diceRoll} (&#x268${(diceRoll - 1) % 6};)`; // Display roll and dice icon
+
+  // Move the pawn
   movePawn(diceRoll);
 }
+
 
 
 function movePawn(steps) {
