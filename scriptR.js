@@ -1,7 +1,3 @@
-//CIB Addition:
-const predefinedSquares = [1, 2, 5, 7, 8, 11, 14, 18, 20, 21]; // Indices for the predefined path
-let currentPathIndex = 0; // Start at the first square in the path
-
 let currentSquare = 0; // Start from square 0 (correct indexing)
 let diceRolling = false; // Prevent multiple rolls at once
 let gameEnded = false; // Track if the game has ended
@@ -134,49 +130,25 @@ function updateTokenDisplay() {
 // Call updateTokenDisplay() at the beginning to show the initial values
 updateTokenDisplay();
 
-// Function to roll the dice
-// function rollDice() {
-//   if (diceRolling || gameEnded) return; // Prevent rolling again until movement is complete or if the game has ended
-//   diceRolling = true;
-
-//   let diceRoll = Math.floor(Math.random() * 5) + 1; // Random number between 1 and 6
-
-//   // Ensure first roll doesn't land on square 4
-//   if (pawnData.position === 0 && diceRoll === 3) {
-//     // If it's the first roll and would land on square 4, re-roll
-//     diceRoll = (diceRoll % 6) + 1; // Shift the roll to another number between 1 and 6
-//   }
-
-//   // Display both the number and the dice dots (Unicode character)
-//   diceDisplay.innerHTML = `🎲 ${diceRoll} (&#x268${diceRoll - 1};)`; // Show number and Unicode dice character
-
-//   // Move the pawn forward by the number rolled
-//   movePawn(diceRoll);
-// }
+Function to roll the dice
 function rollDice() {
-  if (diceRolling || gameEnded) return; // Prevent multiple rolls at once or rolling after the game has ended
+  if (diceRolling || gameEnded) return; // Prevent rolling again until movement is complete or if the game has ended
   diceRolling = true;
 
-  const currentSquare = pawnData.position; // Current square index
-  const nextSquare = predefinedSquares[currentPathIndex]; // Target square in the path
+  let diceRoll = Math.floor(Math.random() * 5) + 1; // Random number between 1 and 6
 
-  // Calculate steps needed to reach the next square
-  let diceRoll = nextSquare - currentSquare;
-
-  // Handle looping around the board if the target square is behind the current position
-  if (diceRoll < 0) {
-    diceRoll += totalSquares; // Adjust for looping
+  // Ensure first roll doesn't land on square 4
+  if (pawnData.position === 0 && diceRoll === 3) {
+    // If it's the first roll and would land on square 4, re-roll
+    diceRoll = (diceRoll % 6) + 1; // Shift the roll to another number between 1 and 6
   }
 
-  // Update the path index for the next roll
-  currentPathIndex = (currentPathIndex + 1) % predefinedSquares.length;
+  // Display both the number and the dice dots (Unicode character)
+  diceDisplay.innerHTML = `🎲 ${diceRoll} (&#x268${diceRoll - 1};)`; // Show number and Unicode dice character
 
-  // Display the dice roll
-  diceDisplay.innerHTML = `🎲 ${diceRoll} (&#x268${(diceRoll - 1) % 6};)`; // Display roll and dice icon
-
-  // Move the pawn
+  // Move the pawn forward by the number rolled
   movePawn(diceRoll);
-}
+// }
 
 
 
